@@ -19,4 +19,3 @@ if __name__ == "__main__":
         KHandler = SmallSMILHandler()
         parser.setContentHandler(KHandler)
         parser.parse(open(fich))
-        print "hola"
