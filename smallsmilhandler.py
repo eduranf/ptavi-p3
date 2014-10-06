@@ -35,6 +35,24 @@ class SmallSMILHandler(ContentHandler):
         self.inImg = 0
         self.inAudio = 0
         self.inTxtstr = 0
+
+    def get_tags(self):
+        """
+        Metodo que devuelve una lista de elementos
+        """
+        if self.inRL:
+            lista_RL = [self.rl_width,self.rl_height,self.rl_bgcolor]
+        elif self.inRegion:
+            lista_region = [self.reg_id, self.reg_top, self.reg_bottom, self.reg_left, self.reg_right]
+        elif self.inImg:
+            lista_img = [self.img_src, self.img_region, self.img_begin, self.img_dur, self.inImg]
+        elif self.inAudio:
+            lista_audio = [self.audio_src, self.audio_begin, self.audio_dur]
+        elif self.inTxtstr:
+            lista_txtstr = [self.txtstr_src, self.txtstr_region]
+        
+        lista_elem = [lista_RL, lista_region, lista_img, lista_audio, lista_txtstr]
+        return lista_elem
     
     def startElment(self, name, attrs):
         """
@@ -75,7 +93,7 @@ class SmallSMILHandler(ContentHandler):
         if name == 'root-layout':
             self.rl_width = ""
             self.rl_height = ""
-            self.rl_bgcolor = "")
+            self.rl_bgcolor = ""
             self.inRL = 0
         elif name == 'region':
             self.reg_id = ""
@@ -99,3 +117,5 @@ class SmallSMILHandler(ContentHandler):
             self.txtstr_src = ""
             self.txtstr_region = ""
             self.inTxtstr = 0
+
+
