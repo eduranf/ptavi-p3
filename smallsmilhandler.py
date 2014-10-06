@@ -4,15 +4,22 @@
 from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
 
+
 class SmallSMILHandler(ContentHandler):
     """
     Clase para manejar SMIL
     """
-    
+
     def __init__(self):
         """
         Constructor
         """
+        self.lista_elem = []
+        self.lista_RL = []
+        self.lista_region = []
+        self.lista_img = []
+        self.lista_audio = []
+        self.lista_txt = []
         self.rl_width = ""
         self.rl_height = ""
         self.rl_bgcolor = ""
@@ -36,54 +43,42 @@ class SmallSMILHandler(ContentHandler):
         self.inAudio = 0
         self.inTxtstr = 0
 
-    def get_tags(self):
-        """
-        Metodo que devuelve una lista de elementos
-        """
-        if self.inRL:
-            lista_RL = [self.rl_width,self.rl_height,self.rl_bgcolor]
-        elif self.inRegion:
-            lista_region = [self.reg_id, self.reg_top, self.reg_bottom, self.reg_left, self.reg_right]
-        elif self.inImg:
-            lista_img = [self.img_src, self.img_region, self.img_begin, self.img_dur, self.inImg]
-        elif self.inAudio:
-            lista_audio = [self.audio_src, self.audio_begin, self.audio_dur]
-        elif self.inTxtstr:
-            lista_txtstr = [self.txtstr_src, self.txtstr_region]
-        
-        lista_elem = [lista_RL, lista_region, lista_img, lista_audio, lista_txtstr]
-        return lista_elem
-    
-    def startElment(self, name, attrs):
+    def startElement(self, name, attrs):
         """
         Método que se llama cuando se abre una etiqueta
         """
         if name == 'root-layout':
-            self.rl_width = attrs.get('width',"")
-            self.rl_height = attrs.get('height',"")
-            self.rl_bgcolor = attrs.get('background-color',"")
+
+            self.rl_width = attrs.get('width', "")
+            self.rl_height = attrs.get('height', "")
+            self.rl_bgcolor = attrs.get('background-color', "")
+            self.lista_RL = [self.rl_width, self.rl_height, self.rl_bgcolor]
             self.inRL = 1
         elif name == 'region':
-            self.reg_id = attrs.get('id',"")
-            self.reg_top = attrs.get('top',"")
-            self.reg_bottom = attrs.get('bottom',"")
-            self.reg_left = attrs.get('left',"")
-            self.reg_right = attrs.get('right',"")
+            self.reg_id = attrs.get('id', "")
+            self.reg_top = attrs.get('top', "")
+            self.reg_bottom = attrs.get('bottom', "")
+            self.reg_left = attrs.get('left', "")
+            self.reg_right = attrs.get('right', "")
+            self.lista_region = [self.reg_id, self.reg_top, self.reg_bottom, self.reg_left, self.reg_right]
             self.inRegion = 1
         elif name == 'img':
-            self.img_src = attrs.get('src',"")
-            self.img_region = attrs.get('region',"")
-            self.img_begin = attrs.get('begin',"")
-            self.img_dur = attrs.get('dur',"")
+            self.img_src = attrs.get('src', "")
+            self.img_region = attrs.get('region', "")
+            self.img_begin = attrs.get('begin', "")
+            self.img_dur = attrs.get('dur', "")
+            self.lista_img = [self.img_src, self.img_region, self.img_begin, self.img_dur, self.inImg]
             self.inImg = 1
         elif name == 'audio':
-            self.audio_src = attrs.get('src',"")
-            self.audio_begin = attrs.get('begin',"")
-            self.audio_dur = attrs.get('dur',"")
+            self.audio_src = attrs.get('src', "")
+            self.audio_begin = attrs.get('begin', "")
+            self.audio_dur = attrs.get('dur', "")
+            self.lista_audio = [self.audio_src, self.audio_begin, self.audio_dur]
             self.inAudio = 1
         elif name == 'textstream':
-            self.txtstr_src = attrs.get('src',"")
-            self.txtstr_region = attrs.get('region',"")
+            self.txtstr_src = attrs.get('src', "")
+            self.txtstr_region = attrs.get('region', "")
+            self.lista_txtstr = [self.txtstr_src, self.txtstr_region]
             self.inTxtstr = 1
 
     def endElement(self, name):
@@ -117,5 +112,13 @@ class SmallSMILHandler(ContentHandler):
             self.txtstr_src = ""
             self.txtstr_region = ""
             self.inTxtstr = 0
+
+    def get_tags(self):
+        """
+        Metodo que devuelve una lista de elementos
+        """
+        self.lista_elem = [self.lista_RL, self.lista_region, self.lista_img, self.lista_audio, self.lista_txtstr]
+        return self.lista_elem
+    
 
 
