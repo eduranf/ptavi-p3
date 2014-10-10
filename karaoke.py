@@ -15,22 +15,18 @@ if __name__ == "__main__":
     if len(lista) != 2:
         print "Usage: python karaoke.py file.smil"
     else:
-        parametro = lista[1]
-        if parametro.split(':')[0] == "http":
-            parametro = parametro.split("/")[-1]
-            os.system("wget -q " + parametro)
-            print str(parametro)
-            
-        else:
-            fich = lista[1]
-            parser = make_parser()
-            KHandler = SmallSMILHandler()
-            parser.setContentHandler(KHandler)
-            parser.parse(open(fich))
-            lista = KHandler.get_tags()
-            for atributos in lista:
-                dicc = atributos[1]
-                frase = ""
-                for elemento in dicc.keys():
-                    frase = frase + elemento + '="' + dicc[elemento] + '"' + "\t"
-                print "Elemento: " + atributos[0] + "\t" + "Atributos: " + frase
+        fich = lista[1]
+        parser = make_parser()
+        KHandler = SmallSMILHandler()
+        parser.setContentHandler(KHandler)
+        parser.parse(open(fich))
+        lista = KHandler.get_tags()
+        for atributos in lista:
+            dicc = atributos[1]
+            frase = ""
+            for elemento in dicc.keys():
+                if dicc[elemento].split(':')[0] == "http":
+                    os.system("wget -q " + dicc[elemento])
+                    dicc[elemento] = dicc[elemento].split("/")[-1]
+                frase = frase + elemento + '="' + dicc[elemento] + '"' + "\t"
+            print "Elemento: " + atributos[0] + "\t" + "Atributos: " + frase
