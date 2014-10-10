@@ -19,10 +19,10 @@ if __name__ == "__main__":
         KHandler = SmallSMILHandler()
         parser.setContentHandler(KHandler)
         parser.parse(open(fich))
-        atributos = KHandler.get_tags()
-        valor = atributos[0]
-        dicc = valor[1]
-        frase = ""
-        for elemento in dicc.keys():
-            frase = frase + elemento + '="' + dicc[elemento] + '"' + "\t"
-        print valor[0] + "\t" + frase
+        lista = KHandler.get_tags()
+        for atributos in lista:
+            dicc = atributos[1]
+            frase = ""
+            for elemento in dicc.keys():
+                frase = frase + elemento + '="' + dicc[elemento] + '"' + "\t"
+            print "Elemento: " + atributos[0] + "\t" + "Atributos: " + frase
