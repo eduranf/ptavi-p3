@@ -15,62 +15,62 @@ class SmallSMILHandler(ContentHandler):
         Constructor
         """
         self.lista_elem = []
-        self.dicc_RL = {}
-        self.dicc_region = {}
-        self.dicc_img = {}
-        self.dicc_audio = {}
-        self.dicc_txtstr = {}
+        self.dic_RL = {}
+        self.dic_region = {}
+        self.dic_img = {}
+        self.dic_audio = {}
+        self.dic_txtstr = {}
 
     def startElement(self, name, attrs):
         """
         Método que se llama cuando se abre una etiqueta
         """
         if name == 'root-layout':
-            self.dicc_RL['width'] = attrs.get('width', "")
-            self.dicc_RL['height'] = attrs.get('height', "")
-            self.dicc_RL['background-color'] = attrs.get('background-color', "")
-            self.lista_elem.append(['root-layout', self.dicc_RL])
+            self.dic_RL['width'] = attrs.get('width', "")
+            self.dic_RL['height'] = attrs.get('height', "")
+            self.dic_RL['background-color'] = attrs.get('background-color', "")
+            self.lista_elem.append(['root-layout', self.dic_RL])
 
         elif name == 'region':
-            self.dicc_region['id'] = attrs.get('id', "")
-            self.dicc_region['top'] = attrs.get('top', "")
-            self.dicc_region['bottom'] = attrs.get('bottom', "")
-            self.dicc_region['left'] = attrs.get('left', "")
-            self.dicc_region['right'] = attrs.get('right', "")
-            self.lista_elem.append(['region', self.dicc_region])
+            self.dic_region['id'] = attrs.get('id', "")
+            self.dic_region['top'] = attrs.get('top', "")
+            self.dic_region['bottom'] = attrs.get('bottom', "")
+            self.dic_region['left'] = attrs.get('left', "")
+            self.dic_region['right'] = attrs.get('right', "")
+            self.lista_elem.append(['region', self.dic_region])
 
         elif name == 'img':
-            self.dicc_img['src'] = attrs.get('src', "")
-            self.dicc_img['region'] = attrs.get('region', "")
-            self.dicc_img['begin'] = attrs.get('begin', "")
-            self.dicc_img['dur'] = attrs.get('dur', "")
-            self.lista_elem.append(['img', self.dicc_img])
+            self.dic_img['src'] = attrs.get('src', "")
+            self.dic_img['region'] = attrs.get('region', "")
+            self.dic_img['begin'] = attrs.get('begin', "")
+            self.dic_img['dur'] = attrs.get('dur', "")
+            self.lista_elem.append(['img', self.dic_img])
 
         elif name == 'audio':
-            self.dicc_audio['src'] = attrs.get('src', "")
-            self.dicc_audio['begin'] = attrs.get('begin', "")
-            self.dicc_audio['dur'] = attrs.get('dur', "")
-            self.lista_elem.append(['audio', self.dicc_audio])
+            self.dic_audio['src'] = attrs.get('src', "")
+            self.dic_audio['begin'] = attrs.get('begin', "")
+            self.dic_audio['dur'] = attrs.get('dur', "")
+            self.lista_elem.append(['audio', self.dic_audio])
 
         elif name == 'textstream':
-            self.dicc_txtstr['src'] = attrs.get('src', "")
-            self.dicc_txtstr['region'] = attrs.get('region', "")
-            self.lista_elem.append(['textstream', self.dicc_txtstr])
+            self.dic_txtstr['src'] = attrs.get('src', "")
+            self.dic_txtstr['region'] = attrs.get('region', "")
+            self.lista_elem.append(['textstream', self.dic_txtstr])
 
     def endElement(self, name):
         """
         Método que se llama al cerrar una etiqueta
         """
         if name == 'root-layout':
-            self.dicc_RL = {}
+            self.dic_RL = {}
         elif name == 'region':
-            self.dicc_region = {}
+            self.dic_region = {}
         elif name == 'img':
-            self.dicc_img = {}
+            self.dic_img = {}
         elif name == 'audio':
-            self.dicc_audio = {}         
+            self.dic_audio = {}
         elif name == 'textstream':
-             self.dicc_txtstr = {}
+            self.dic_txtstr = {}
 
     def get_tags(self):
         """
