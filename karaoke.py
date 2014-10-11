@@ -24,9 +24,10 @@ if __name__ == "__main__":
         for atributos in lista:
             dicc = atributos[1]
             frase = ""
-            for elemento in dicc.keys():
-                if dicc[elemento].split(':')[0] == "http":
-                    os.system("wget -q " + dicc[elemento])
-                    dicc[elemento] = dicc[elemento].split("/")[-1]
-                frase = frase + elemento + '="' + dicc[elemento] + '"' + "\t"
-            print "Elemento: " + atributos[0] + "\t" + "Atributos: " + frase
+            for atrib in dicc.keys():
+                if dicc[atrib] != "":
+                    if dicc[atrib].split(':')[0] == "http":
+                        os.system("wget -q " + dicc[atrib])
+                        dicc[atrib] = dicc[atrib].split("/")[-1]
+                    frase = frase + atrib + '="' + dicc[atrib] + '"' + "\t"
+            print atributos[0] + "\t" + frase
