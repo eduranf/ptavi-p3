@@ -7,6 +7,7 @@ from xml.sax import make_parser
 from xml.sax.handler import ContentHandler
 from smallsmilhandler import SmallSMILHandler
 
+
 class KaraokeLocal():
     """
     Clase para gestionar archivos karaoke
@@ -20,20 +21,20 @@ class KaraokeLocal():
 
     def __str__(self):
         for atributos in self.lista:
-            dicc = atributos[1]
+            dic = atributos[1]
             frase = ""
-            for atrib in dicc.keys():
-                if dicc[atrib] != "":
-                    frase = frase + atrib + '="' + dicc[atrib] + '"' + "\t"
+            for atrib in dic.keys():
+                if dic[atrib] != "":
+                    frase = frase + atrib + '="' + dic[atrib] + '"' + "\t"
             print atributos[0] + "\t" + frase
 
     def do_local(self):
-         for atributos in self.lista:
-            dicc = atributos[1]
-            for atrib in dicc.keys():
-                if dicc[atrib].split(':')[0] == "http":
-                    os.system("wget -q " + dicc[atrib])
-                    dicc[atrib] = dicc[atrib].split("/")[-1]
+        for atributos in self.lista:
+            dic = atributos[1]
+            for atrib in dic.keys():
+                if dic[atrib].split(':')[0] == "http":
+                    os.system("wget -q " + dic[atrib])
+                    dic[atrib] = dic[atrib].split("/")[-1]
 
 if __name__ == "__main__":
     """
