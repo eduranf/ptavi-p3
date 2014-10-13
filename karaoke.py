@@ -16,8 +16,12 @@ class KaraokeLocal():
         parser = make_parser()
         KHandler = SmallSMILHandler()
         parser.setContentHandler(KHandler)
-        parser.parse(open(fich))
-        self.lista = KHandler.get_tags()
+        try:
+            parser.parse(open(fich))
+            self.lista = KHandler.get_tags()
+        except:
+            print
+            sys.exit("Error del fichero")
 
     def __str__(self):
         str_total = ""
@@ -26,8 +30,8 @@ class KaraokeLocal():
             frase = ""
             for atrib in dic.keys():
                 if dic[atrib] != "":
-                    frase = frase + atrib + '="' + dic[atrib] + '"' + "\t"
-            str_total = str_total + atributos[0] + "\t" + frase
+                    frase = frase + "\t" + atrib + '="' + dic[atrib] + '"'
+            str_total = str_total + atributos[0] + frase
             if atributos != self.lista[-1]:
                 str_total = str_total + "\n"
         return str_total
