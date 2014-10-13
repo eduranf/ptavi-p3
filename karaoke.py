@@ -1,5 +1,6 @@
 #!/usr/bin/python
 # -*- coding: iso-8859-15 -*-
+#PTAVI - Practica 3 - Miguel Angel Fernandez Sanchez
 
 import sys
 import os
