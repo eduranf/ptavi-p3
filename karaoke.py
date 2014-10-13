@@ -20,13 +20,17 @@ class KaraokeLocal():
         self.lista = KHandler.get_tags()
 
     def __str__(self):
+        str_total = ""
         for atributos in self.lista:
             dic = atributos[1]
             frase = ""
             for atrib in dic.keys():
                 if dic[atrib] != "":
                     frase = frase + atrib + '="' + dic[atrib] + '"' + "\t"
-            print atributos[0] + "\t" + frase
+            str_total = str_total + atributos[0] + "\t" + frase
+            if atributos != self.lista[-1]:
+                str_total = str_total + "\n"
+        return str_total
 
     def do_local(self):
         for atributos in self.lista:
@@ -46,6 +50,6 @@ if __name__ == "__main__":
     else:
         fichero = lista[1]
         mi_kar = KaraokeLocal(fichero)
-        mi_kar.__str__()
+        print mi_kar.__str__()
         mi_kar.do_local()
-        mi_kar.__str__()
+        print mi_kar.__str__()
