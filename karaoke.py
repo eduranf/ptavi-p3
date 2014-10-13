@@ -29,7 +29,7 @@ class KaraokeLocal():
                     frase = frase + atrib + '="' + dic[atrib] + '"' + "\t"
             str_total = str_total + atributos[0] + "\t" + frase
             if atributos != self.lista[-1]:
-                str_total = str_total + "\n"
+                str_total = str_total[-1] + "\n"
         return str_total
 
     def do_local(self):
